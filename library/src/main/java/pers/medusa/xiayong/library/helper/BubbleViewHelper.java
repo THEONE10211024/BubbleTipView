@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.PopupWindow;
 
 import pers.medusa.xiayong.library.IBubbleView;
+import pers.medusa.xiayong.library.R;
 import pers.medusa.xiayong.library.drawable.BubbleDrawable;
 
 /**
@@ -40,6 +41,7 @@ public class BubbleViewHelper {
                 bubbleViewLayoutRes, null);
         mAnchor = anchor;
         mBubblePopupWindow = new PopupWindow(mBubbleView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        mBubblePopupWindow.setAnimationStyle(R.style.popwin_anim_style);
         mBubblePopupWindow.setFocusable(false);
         mBubblePopupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         mBubbleView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);

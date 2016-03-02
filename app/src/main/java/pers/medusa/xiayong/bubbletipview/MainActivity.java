@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
             helper1 = new BubbleViewHelper();
             helper1.init(btn1, R.layout.view_demo_textview_bubble);
-            helper1.show();
+            helper1.dismissBubblePopupWindow();
 
         }
     }
