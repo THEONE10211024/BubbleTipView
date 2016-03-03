@@ -20,9 +20,10 @@ public class BubbleTextVew extends TextView implements IBubbleView{
     private float mArrowWidth;
     private float mAngle;
     private float mArrowHeight;
-//    private float mArrowPosition;
     private float mArrowPositionPercent;
-    private int bubbleColor;
+    private int solidColor;
+    private int strokeColor;
+    private float strokeWidth;
     private BubbleDrawable.ArrowLocation mArrowLocation;
     public BubbleTextVew(Context context) {
         super(context);
@@ -48,12 +49,14 @@ public class BubbleTextVew extends TextView implements IBubbleView{
                     BubbleDrawable.Builder.DEFAULT_ARROW_HEIGHT);
             mAngle = array.getDimension(R.styleable.BubbleView_angle,
                     BubbleDrawable.Builder.DEFAULT_ANGLE);
-           /* mArrowPosition = array.getDimension(R.styleable.BubbleView_arrowPosition,
-                    BubbleDrawable.Builder.DEFAULT_ARROW_POSITION);*/
             mArrowPositionPercent  = array.getFraction(R.styleable.BubbleView_arrowRelativePosition, 1, 1,
                     BubbleDrawable.Builder.DEFAULT_ARROW_RELATIVE_POSITION);
-            bubbleColor = array.getColor(R.styleable.BubbleView_bubbleColor,
-                    BubbleDrawable.Builder.DEFAULT_BUBBLE_COLOR);
+            solidColor = array.getColor(R.styleable.BubbleView_solidColor,
+                    BubbleDrawable.Builder.DEFAULT_SOLID_COLOR);
+            strokeColor = array.getColor(R.styleable.BubbleView_strokeColor,
+                    BubbleDrawable.Builder.DEFAULT_STROKE_COLOR);
+            strokeWidth = array.getDimension(R.styleable.BubbleView_strokeWidth,
+                    BubbleDrawable.Builder.DEFAULT_STROKE_WIDTH);
             int location = array.getInt(R.styleable.BubbleView_arrowLocation, 0);
             mArrowLocation = BubbleDrawable.ArrowLocation.mapIntToValue(location);
             array.recycle();
@@ -99,7 +102,9 @@ public class BubbleTextVew extends TextView implements IBubbleView{
                 .angle(mAngle)
                 .arrowHeight(mArrowHeight)
                 .arrowWidth(mArrowWidth)
-                .bubbleColor(bubbleColor)
+                .solidColor(solidColor)
+                .strokeColor(strokeColor)
+                .strokeWidth(strokeWidth)
                 .arrowRelativePosition(mArrowPositionPercent)
                 .build();
     }

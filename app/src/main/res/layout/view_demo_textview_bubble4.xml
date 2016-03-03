@@ -2,18 +2,13 @@
    <pers.medusa.xiayong.library.widget.BubbleTextVew
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/textView"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="Hello BubbleTextVew"
-    android:textSize="20sp"
     android:padding="10dp"
     android:textColor="@android:color/white"
     app:arrowWidth="8dp"
-    app:angle="8dp"
+    app:angle="2dp"
     app:arrowHeight="10dp"
-    app:arrowRelativePosition="50%"
-    app:arrowLocation="top"
-    app:solidColor="#7EC0EE"
-    app:strokeColor="#E6454A"
-    app:strokeWidth="2dp"/>
+    app:arrowLocation="bottom"
+    app:solidColor="#ff4444"/>

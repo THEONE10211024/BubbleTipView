@@ -6,7 +6,9 @@
         <attr name="arrowHeight" format="dimension"/>
         <!--<attr name="arrowPosition" format="dimension"/>-->
         <attr name="arrowRelativePosition" format="fraction"/>
-        <attr name="bubbleColor" format="color"/>
+        <attr name="solidColor" format="color"/>
+        <attr name="strokeColor" format="color"/>
+        <attr name="strokeWidth" format="dimension"/>
         <attr name="arrowLocation" format="enum">
             <enum name="left" value="0x00"/>
             <enum name="right" value="0x01"/>

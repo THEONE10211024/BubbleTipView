@@ -9,6 +9,8 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PixelFormat;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
@@ -21,13 +23,15 @@ public class BubbleDrawable extends Drawable {
     private RectF mRect;
     private Path mPath = new Path();
     private BitmapShader mBitmapShader;
-    private Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Paint mSolidPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Paint mStrokePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private float mArrowWidth;
     private float mAngle;
     private float mArrowHeight;
-//    private float mArrowPosition;
     private float mArrowRelativePosition;
-    private int bubbleColor;
+    private int solidColor;
+    private int strokeColor;
+    private float strokeWidth;
     private Bitmap bubbleBitmap;
     private ArrowLocation mArrowLocation;
     private BubbleType bubbleType;
@@ -37,10 +41,13 @@ public class BubbleDrawable extends Drawable {
         this.mArrowHeight = builder.mArrowHeight;
         this.mArrowWidth = builder.mArrowWidth;
         this.mArrowRelativePosition = builder.mArrowRelativePosition;
-        this.bubbleColor = builder.bubbleColor;
+        this.solidColor = builder.solidColor;
+        this.strokeColor = builder.strokeColor;
+        this.strokeWidth = builder.strokeWidth;
         this.bubbleBitmap = builder.bubbleBitmap;
         this.mArrowLocation = builder.mArrowLocation;
         this.bubbleType = builder.bubbleType;
+
     }
 
     @Override
@@ -60,12 +67,15 @@ public class BubbleDrawable extends Drawable {
 
     @Override
     public void setAlpha(int alpha) {
-        mPaint.setAlpha(alpha);
+        mSolidPaint.setAlpha(alpha);
+        mStrokePaint.setAlpha(alpha);
+
     }
 
     @Override
     public void setColorFilter(ColorFilter cf) {
-        mPaint.setColorFilter(cf);
+        mSolidPaint.setColorFilter(cf);
+        mStrokePaint.setColorFilter(cf);
     }
 
     private void setUpPath(ArrowLocation mArrowLocation, Path path){
@@ -85,26 +95,34 @@ public class BubbleDrawable extends Drawable {
         }
     }
 
-    private void setUp(Canvas canvas){
-        switch (bubbleType){
+    private void setUp(Canvas canvas) {
+        switch (bubbleType) {
             case COLOR:
-                mPaint.setColor(bubbleColor);
+                mSolidPaint.setColor(solidColor);
                 break;
             case BITMAP:
                 if (bubbleBitmap == null)
                     return;
-                if (mBitmapShader == null){
+                if (mBitmapShader == null) {
                     mBitmapShader = new BitmapShader(bubbleBitmap,
                             Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
                 }
-                mPaint.setShader(mBitmapShader);
+                mSolidPaint.setShader(mBitmapShader);
                 setUpShaderMatrix();
                 break;
         }
         setUpPath(mArrowLocation, mPath);
-        canvas.drawPath(mPath, mPaint);
+        canvas.drawPath(mPath, mSolidPaint);
+        drawStroke(canvas);
     }
+    private void drawStroke(Canvas canvas){
 
+        mStrokePaint.setColor(strokeColor);
+        mStrokePaint.setStyle(Paint.Style.STROKE);
+        mStrokePaint.setStrokeWidth(strokeWidth*2);
+        mStrokePaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
+        canvas.drawPath(mPath, mStrokePaint);
+    }
     private void setUpLeftPath(RectF rect, Path path){
 
         float mArrowPosition = mArrowRelativePosition*rect.height();
@@ -230,13 +248,17 @@ public class BubbleDrawable extends Drawable {
         public static float DEFAULT_ARROW_HEIGHT = 25;
         public static float DEFAULT_ANGLE = 20;
         public static float DEFAULT_ARROW_RELATIVE_POSITION = 0.3f;
-        public static int DEFAULT_BUBBLE_COLOR = Color.RED;
+        public static int DEFAULT_SOLID_COLOR = Color.RED;
+        public static int DEFAULT_STROKE_COLOR = Color.TRANSPARENT;
+        public static float DEFAULT_STROKE_WIDTH = 1;
         private RectF mRect;
         private float mArrowWidth = DEFAULT_ARROW_WITH;
         private float mAngle = DEFAULT_ANGLE;
         private float mArrowHeight = DEFAULT_ARROW_HEIGHT;
         private float mArrowRelativePosition = DEFAULT_ARROW_RELATIVE_POSITION;
-        private int bubbleColor = DEFAULT_BUBBLE_COLOR;
+        private int solidColor = DEFAULT_SOLID_COLOR;
+        private int strokeColor = DEFAULT_STROKE_COLOR;
+        private float strokeWidth = DEFAULT_STROKE_WIDTH;
         private Bitmap bubbleBitmap;
         private BubbleType bubbleType = BubbleType.COLOR;
         private ArrowLocation mArrowLocation = ArrowLocation.LEFT;
@@ -260,6 +282,15 @@ public class BubbleDrawable extends Drawable {
             this.mArrowHeight = mArrowHeight;
             return this;
         }
+        public Builder strokeWidth(float strokeWidth){
+            this.strokeWidth = strokeWidth;
+            return this;
+        }
+
+        public Builder strokeColor(int strokeColor){
+            this.strokeColor = strokeColor;
+            return this;
+        }
 
         public Builder arrowRelativePosition(float mArrowRelativePosition){
             if(mArrowRelativePosition > 0.8f){
@@ -271,8 +302,8 @@ public class BubbleDrawable extends Drawable {
             return this;
         }
 
-        public Builder bubbleColor(int bubbleColor){
-            this.bubbleColor = bubbleColor;
+        public Builder solidColor(int bubbleColor){
+            this.solidColor = bubbleColor;
             bubbleType(BubbleType.COLOR);
             return this;
         }
