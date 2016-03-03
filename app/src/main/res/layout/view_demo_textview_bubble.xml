@@ -12,6 +12,6 @@
     app:arrowWidth="8dp"
     app:angle="8dp"
     app:arrowHeight="10dp"
-    app:arrowPosition="14dp"
+    app:arrowRelativePosition="30%"
     app:arrowLocation="top"
     app:bubbleColor="#7EC0EE"/>

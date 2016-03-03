@@ -26,7 +26,7 @@ public class BubbleImageView extends ImageView implements IBubbleView{
     private float mArrowWidth;
     private float mAngle;
     private float mArrowHeight;
-    private float mArrowPosition;
+    private float mArrowPositionPercent;
     private Bitmap mBitmap;
     private BubbleDrawable.ArrowLocation mArrowLocation;
     public BubbleImageView(Context context) {
@@ -53,8 +53,8 @@ public class BubbleImageView extends ImageView implements IBubbleView{
                     BubbleDrawable.Builder.DEFAULT_ARROW_HEIGHT);
             mAngle = array.getDimension(R.styleable.BubbleView_angle,
                     BubbleDrawable.Builder.DEFAULT_ANGLE);
-            mArrowPosition = array.getDimension(R.styleable.BubbleView_arrowPosition,
-                    BubbleDrawable.Builder.DEFAULT_ARROW_POSITION);
+            mArrowPositionPercent  = array.getFraction(R.styleable.BubbleView_arrowRelativePosition, 1, 1,
+                    BubbleDrawable.Builder.DEFAULT_ARROW_RELATIVE_POSITION);
             int location = array.getInt(R.styleable.BubbleView_arrowLocation, 0);
             mArrowLocation = BubbleDrawable.ArrowLocation.mapIntToValue(location);
             array.recycle();
@@ -115,7 +115,7 @@ public class BubbleImageView extends ImageView implements IBubbleView{
                 .arrowHeight(mArrowHeight)
                 .arrowWidth(mArrowWidth)
                 .bubbleType(BubbleDrawable.BubbleType.BITMAP)
-                .arrowPosition(mArrowPosition)
+                .arrowRelativePosition(mArrowPositionPercent)
                 .bubbleBitmap(mBitmap)
                 .build();
     }
@@ -208,6 +208,11 @@ public class BubbleImageView extends ImageView implements IBubbleView{
     @Override
     public BubbleDrawable.ArrowLocation getArrowDirection() {
         return mArrowLocation;
+    }
+
+    @Override
+    public float getArrowRelativePosition() {
+        return mArrowPositionPercent;
     }
 
     public static int dp2px(Context context, int dp) {

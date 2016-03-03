@@ -20,7 +20,7 @@ public class BubbleLinearLayout extends LinearLayout implements IBubbleView{
     private float mArrowWidth;
     private float mAngle;
     private float mArrowHeight;
-    private float mArrowPosition;
+    private float mArrowPositionPercent;
     private BubbleDrawable.ArrowLocation mArrowLocation;
     private int bubbleColor;
     public BubbleLinearLayout(Context context) {
@@ -43,8 +43,8 @@ public class BubbleLinearLayout extends LinearLayout implements IBubbleView{
                     BubbleDrawable.Builder.DEFAULT_ARROW_HEIGHT);
             mAngle = array.getDimension(R.styleable.BubbleView_angle,
                     BubbleDrawable.Builder.DEFAULT_ANGLE);
-            mArrowPosition = array.getDimension(R.styleable.BubbleView_arrowPosition,
-                    BubbleDrawable.Builder.DEFAULT_ARROW_POSITION);
+            mArrowPositionPercent  = array.getFraction(R.styleable.BubbleView_arrowRelativePosition, 1, 1,
+                    BubbleDrawable.Builder.DEFAULT_ARROW_RELATIVE_POSITION);
             bubbleColor = array.getColor(R.styleable.BubbleView_bubbleColor,
                     BubbleDrawable.Builder.DEFAULT_BUBBLE_COLOR);
             int location = array.getInt(R.styleable.BubbleView_arrowLocation, 0);
@@ -72,7 +72,7 @@ public class BubbleLinearLayout extends LinearLayout implements IBubbleView{
                 .angle(mAngle)
                 .arrowHeight(mArrowHeight)
                 .arrowWidth(mArrowWidth)
-                .arrowPosition(mArrowPosition)
+                .arrowRelativePosition(mArrowPositionPercent)
                 .bubbleColor(bubbleColor)
                 .build();
     }
@@ -86,5 +86,10 @@ public class BubbleLinearLayout extends LinearLayout implements IBubbleView{
     @Override
     public BubbleDrawable.ArrowLocation getArrowDirection() {
         return mArrowLocation;
+    }
+
+    @Override
+    public float getArrowRelativePosition() {
+        return mArrowPositionPercent;
     }
 }

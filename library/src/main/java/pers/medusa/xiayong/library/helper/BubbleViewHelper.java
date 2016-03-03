@@ -41,7 +41,7 @@ public class BubbleViewHelper {
                 bubbleViewLayoutRes, null);
         mAnchor = anchor;
         mBubblePopupWindow = new PopupWindow(mBubbleView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-        mBubblePopupWindow.setAnimationStyle(R.style.popwin_anim_style);
+//        mBubblePopupWindow.setAnimationStyle(R.style.popwin_anim_style);
         mBubblePopupWindow.setFocusable(false);
         mBubblePopupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         mBubbleView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
@@ -72,25 +72,25 @@ public class BubbleViewHelper {
         switch (arrowDirection) {
             case LEFT: {
                 xOffset = anchorWidth;
-                int arrowOffset = (mBubbleViewHeight / 2) /*- (int) (mBubbleViewHeight * mBubbleView.getRelative())*/;
+                int arrowOffset = (mBubbleViewHeight / 2) - (int) (mBubbleViewHeight * ((IBubbleView)mBubbleView).getArrowRelativePosition());
                 yOffset = -(mBubbleViewHeight - anchorHeight) / 2 + arrowOffset;
             }
             break;
             case TOP: {
                 yOffset = anchorHeight;
-                int arrowOffset = (mBubbleViewWidth / 2) /*- (int) (mBubbleViewWidth * mBubbleView.getRelative())*/;
+                int arrowOffset = (mBubbleViewWidth / 2) - (int) (mBubbleViewWidth * ((IBubbleView)mBubbleView).getArrowRelativePosition());
                 xOffset = -(mBubbleViewWidth - anchorWidth) / 2 + arrowOffset;
             }
             break;
             case BOTTOM: {
                 yOffset = -mBubbleViewHeight;
-                int arrowOffset = (mBubbleViewWidth / 2)/* - (int) (mBubbleViewWidth * mBubbleView.getRelative())*/;
+                int arrowOffset = (mBubbleViewWidth / 2) - (int) (mBubbleViewWidth * ((IBubbleView)mBubbleView).getArrowRelativePosition());
                 xOffset = -(mBubbleViewWidth - anchorWidth) / 2 + arrowOffset;
             }
             break;
             default: {
                 xOffset = -mBubbleViewWidth - 10;
-                int arrowOffset = (mBubbleViewHeight / 2) /*- (int) (mBubbleViewHeight * mBubbleView.getRelative())*/;
+                int arrowOffset = (mBubbleViewHeight / 2) - (int) (mBubbleViewHeight * ((IBubbleView)mBubbleView).getArrowRelativePosition());
                 yOffset = -(mBubbleViewHeight - anchorHeight) / 2 + arrowOffset;
             }
         }

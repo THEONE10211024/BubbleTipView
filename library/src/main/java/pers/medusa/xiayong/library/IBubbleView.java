@@ -7,4 +7,5 @@ import pers.medusa.xiayong.library.drawable.BubbleDrawable;
  */
 public interface IBubbleView {
     BubbleDrawable.ArrowLocation getArrowDirection();
+    float getArrowRelativePosition();
 }

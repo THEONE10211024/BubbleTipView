@@ -25,7 +25,8 @@ public class BubbleDrawable extends Drawable {
     private float mArrowWidth;
     private float mAngle;
     private float mArrowHeight;
-    private float mArrowPosition;
+//    private float mArrowPosition;
+    private float mArrowRelativePosition;
     private int bubbleColor;
     private Bitmap bubbleBitmap;
     private ArrowLocation mArrowLocation;
@@ -35,7 +36,7 @@ public class BubbleDrawable extends Drawable {
         this.mAngle = builder.mAngle;
         this.mArrowHeight = builder.mArrowHeight;
         this.mArrowWidth = builder.mArrowWidth;
-        this.mArrowPosition = builder.mArrowPosition;
+        this.mArrowRelativePosition = builder.mArrowRelativePosition;
         this.bubbleColor = builder.bubbleColor;
         this.bubbleBitmap = builder.bubbleBitmap;
         this.mArrowLocation = builder.mArrowLocation;
@@ -106,6 +107,7 @@ public class BubbleDrawable extends Drawable {
 
     private void setUpLeftPath(RectF rect, Path path){
 
+        float mArrowPosition = mArrowRelativePosition*rect.height();
         path.moveTo(mArrowWidth + rect.left + mAngle, rect.top);
         path.lineTo(rect.width() - mAngle, rect.top);
         path.arcTo(new RectF(rect.right - mAngle , rect.top, rect.right,
@@ -126,6 +128,8 @@ public class BubbleDrawable extends Drawable {
     }
 
     private void setUpTopPath(RectF rect, Path path){
+
+        float mArrowPosition = mArrowRelativePosition*rect.width();
         path.moveTo(rect.left + Math.min(mArrowPosition, mAngle), rect.top + mArrowHeight);
         path.lineTo(rect.left + mArrowPosition,  rect.top + mArrowHeight);
         path.lineTo(rect.left + mArrowWidth / 2 + mArrowPosition, rect.top);
@@ -150,6 +154,7 @@ public class BubbleDrawable extends Drawable {
 
     private void setUpRightPath(RectF rect, Path path){
 
+        float mArrowPosition = mArrowRelativePosition*rect.height();
         path.moveTo(rect.left + mAngle, rect.top);
         path.lineTo(rect.width() - mAngle - mArrowWidth, rect.top);
         path.arcTo(new RectF(rect.right - mAngle - mArrowWidth,
@@ -173,6 +178,7 @@ public class BubbleDrawable extends Drawable {
 
     private void setUpBottomPath(RectF rect, Path path){
 
+        float mArrowPosition = mArrowRelativePosition*rect.width();
         path.moveTo(rect.left + mAngle, rect.top);
         path.lineTo(rect.width() - mAngle, rect.top);
         path.arcTo(new RectF(rect.right - mAngle,
@@ -223,13 +229,13 @@ public class BubbleDrawable extends Drawable {
         public static float DEFAULT_ARROW_WITH = 25;
         public static float DEFAULT_ARROW_HEIGHT = 25;
         public static float DEFAULT_ANGLE = 20;
-        public static float DEFAULT_ARROW_POSITION = 50;
+        public static float DEFAULT_ARROW_RELATIVE_POSITION = 0.3f;
         public static int DEFAULT_BUBBLE_COLOR = Color.RED;
         private RectF mRect;
         private float mArrowWidth = DEFAULT_ARROW_WITH;
         private float mAngle = DEFAULT_ANGLE;
         private float mArrowHeight = DEFAULT_ARROW_HEIGHT;
-        private float mArrowPosition = DEFAULT_ARROW_POSITION;
+        private float mArrowRelativePosition = DEFAULT_ARROW_RELATIVE_POSITION;
         private int bubbleColor = DEFAULT_BUBBLE_COLOR;
         private Bitmap bubbleBitmap;
         private BubbleType bubbleType = BubbleType.COLOR;
@@ -255,8 +261,13 @@ public class BubbleDrawable extends Drawable {
             return this;
         }
 
-        public Builder arrowPosition(float mArrowPosition){
-            this.mArrowPosition = mArrowPosition;
+        public Builder arrowRelativePosition(float mArrowRelativePosition){
+            if(mArrowRelativePosition > 0.8f){
+                mArrowRelativePosition = 0.8f;
+            }else if(mArrowRelativePosition < 0.2f){
+                mArrowRelativePosition = 0.2f;
+            }
+            this.mArrowRelativePosition = mArrowRelativePosition;
             return this;
         }
 
