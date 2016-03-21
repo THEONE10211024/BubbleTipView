@@ -7,7 +7,7 @@
     app:angle="4dp"
     app:arrowHeight="10dp"
     app:arrowLocation="left"
-    app:solidColor="#7EC0EE"
+    app:bubbleSolidColor="#7EC0EE"
     android:id="@+id/bubble_layout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">

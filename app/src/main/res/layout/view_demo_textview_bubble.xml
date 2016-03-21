@@ -14,6 +14,6 @@
     app:arrowHeight="10dp"
     app:arrowRelativePosition="50%"
     app:arrowLocation="top"
-    app:solidColor="#7EC0EE"
-    app:strokeColor="#E6454A"
-    app:strokeWidth="2dp"/>
+    app:bubbleSolidColor="#7EC0EE"
+    app:bubbleStrokeColor="#E6454A"
+    app:bubbleStrokeWidth="2dp"/>

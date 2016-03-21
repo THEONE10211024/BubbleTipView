@@ -11,4 +11,4 @@
     app:angle="2dp"
     app:arrowHeight="10dp"
     app:arrowLocation="bottom"
-    app:solidColor="#ff4444"/>
+    app:bubbleSolidColor="#ff4444"/>

@@ -22,6 +22,7 @@ public class BubbleViewHelper {
     private View mAnchor;
     private int mBubbleViewWidth;
     private int mBubbleViewHeight;
+    private boolean outsideTouchable = true;//点击气泡外部是否消失,默认点击消失
 
     public BubbleViewHelper() {
     }
@@ -42,7 +43,7 @@ public class BubbleViewHelper {
         mAnchor = anchor;
         mBubblePopupWindow = new PopupWindow(mBubbleView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
 //        mBubblePopupWindow.setAnimationStyle(R.style.popwin_anim_style);
-        mBubblePopupWindow.setFocusable(false);
+        mBubblePopupWindow.setOutsideTouchable(outsideTouchable);
         mBubblePopupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         mBubbleView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
         mBubbleViewWidth = mBubbleView.getMeasuredWidth();
@@ -108,20 +109,11 @@ public class BubbleViewHelper {
         mBubblePopupWindow.dismiss();
     }
 
-    /**
-     * @see BubbleViewHelper#getBubbleView()
-     * @return
-     */
-    /*@Deprecated
-    public LeBubbleTextView getBubbleTextView() {
-        if(mBubbleView instanceof LeBubbleTextView) {
-            return (LeBubbleTextView)mBubbleView;
-        }else {
-            return null;
-        }
-    }*/
-
     public View getBubbleView() {
         return mBubbleView;
+    }
+
+    public void setOutsideTouchable(boolean outsideTouchable) {
+        this.outsideTouchable = outsideTouchable;
     }
 }

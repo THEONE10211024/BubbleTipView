@@ -47,11 +47,11 @@ public class BubbleLinearLayout extends LinearLayout implements IBubbleView{
                     BubbleDrawable.Builder.DEFAULT_ANGLE);
             mArrowPositionPercent  = array.getFraction(R.styleable.BubbleView_arrowRelativePosition, 1, 1,
                     BubbleDrawable.Builder.DEFAULT_ARROW_RELATIVE_POSITION);
-            solidColor = array.getColor(R.styleable.BubbleView_solidColor,
+            solidColor = array.getColor(R.styleable.BubbleView_bubbleSolidColor,
                     BubbleDrawable.Builder.DEFAULT_SOLID_COLOR);
-            strokeColor = array.getColor(R.styleable.BubbleView_strokeColor,
+            strokeColor = array.getColor(R.styleable.BubbleView_bubbleStrokeColor,
                     BubbleDrawable.Builder.DEFAULT_STROKE_COLOR);
-            strokeWidth = array.getDimension(R.styleable.BubbleView_strokeWidth,
+            strokeWidth = array.getDimension(R.styleable.BubbleView_bubbleStrokeWidth,
                     BubbleDrawable.Builder.DEFAULT_STROKE_WIDTH);
             int location = array.getInt(R.styleable.BubbleView_arrowLocation, 0);
             mArrowLocation = BubbleDrawable.ArrowLocation.mapIntToValue(location);
